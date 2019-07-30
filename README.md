@@ -1,3 +1,3 @@
 # react-practical
 
-comming soon!
+Coming Soon!
