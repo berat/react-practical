@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import GitHubButton from 'react-github-btn'
 import Auth from './auth/';
 
 const Sidebar = ({ posts, setPosts }) => {
@@ -42,6 +43,9 @@ const Sidebar = ({ posts, setPosts }) => {
                     <button type="submit" onClick={gonder} className="btn btn-primary form-control">Güncelemeyi Ekle</button>
                 </div>
             </form>
+            <div className="mt-sm-4 text-center">
+                <GitHubButton href="https://github.com/berat/react-practical" data-size="large" data-show-count="true" aria-label="Star berat/react-practical on GitHub">Star</GitHubButton>
+            </div>
         </div>
     );
 }
