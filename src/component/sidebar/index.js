@@ -5,10 +5,22 @@ const Sidebar = ( {posts, setPosts} ) => {
 
     const gonder = e =>{
         e.preventDefault();
-        let kim = "Berat";
-        let tarih = "04 Ocak 2019";
+        let kim = "Kim?";
+        let tarih = tarihDüzenle(new Date());
         yazdir(text.current.value, kim, tarih);
         text.current.value = '';
+    }
+
+    const tarihDüzenle = tarih => {
+        let aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs",
+                    "Haziran", "Temmuz", "Ağustos", "Eylül",
+                    "Ekim", "Kasım", "Aralık"];
+        let gün = tarih.getDate();
+        let aySayi= tarih.getMonth();
+        let yil = tarih.getFullYear();
+
+        return gün + ' ' + aylar[aySayi] + ' ' + yil;
+
     }
 
     const yazdir = (value, kim, tarih) => {
