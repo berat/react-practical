@@ -7,7 +7,7 @@ const Sidebar = ({ posts, setPosts }) => {
         e.preventDefault();
         let kim = "Kim?";
         let tarih = tarihDüzenle(new Date());
-        yazdir(text.current.value, kim, tarih);
+        text.current.value==='' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, kim, tarih);
         text.current.value = '';
     }
 
