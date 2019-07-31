@@ -1,9 +1,9 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 
-const Sidebar = ( {posts, setPosts} ) => {
+const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
 
-    const gonder = e =>{
+    const gonder = e => {
         e.preventDefault();
         let kim = "Kim?";
         let tarih = tarihDüzenle(new Date());
@@ -13,10 +13,10 @@ const Sidebar = ( {posts, setPosts} ) => {
 
     const tarihDüzenle = tarih => {
         let aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs",
-                    "Haziran", "Temmuz", "Ağustos", "Eylül",
-                    "Ekim", "Kasım", "Aralık"];
+            "Haziran", "Temmuz", "Ağustos", "Eylül",
+            "Ekim", "Kasım", "Aralık"];
         let gün = tarih.getDate();
-        let aySayi= tarih.getMonth();
+        let aySayi = tarih.getMonth();
         let yil = tarih.getFullYear();
 
         return gün + ' ' + aylar[aySayi] + ' ' + yil;
@@ -24,8 +24,8 @@ const Sidebar = ( {posts, setPosts} ) => {
     }
 
     const yazdir = (value, kim, tarih) => {
-         const newPosts = [ {text: value, kim: kim, tarih: tarih}, ...posts ];
-         setPosts(newPosts);
+        const newPosts = [{ text: value, kim: kim, tarih: tarih }, ...posts];
+        setPosts(newPosts);
     }
 
     return (
