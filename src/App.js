@@ -13,8 +13,12 @@ const App = () => {
       <Header />
       <div className="container">
         <div className="row">
-          <Content />
-          <Sidebar />
+          <div className="col-9">
+            <Content />
+          </div>
+          <div className="col-3">
+            <Sidebar />
+          </div>
         </div>
       </div>
       <Footer />
