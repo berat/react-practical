@@ -1,15 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import Header from './component/header';
 import Content from './component/content/';
+import Sidebar from './component/sidebar/';
 import Footer from './component/footer/';
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Route exec path="/" component={Content} />
+      <div className="container">
+        <div className="row">
+          <Content />
+          <Sidebar />
+        </div>
+      </div>
       <Footer />
     </BrowserRouter>
   )
