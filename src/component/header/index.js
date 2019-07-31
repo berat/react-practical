@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
 
 	const [toggleIsVisible, setToggleIsVisible] = useState(false);
+	const [aktiflik, setAktiflik] = useState(false);
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,13 +18,13 @@ const Header = () => {
 						<li className="nav-item">
 							<NavLink activeClassName="active" className="nav-link" to="/">Ansayfa</NavLink>
 						</li>
-						<li className="nav-item">
+						<li className="nav-item" style={{ display : aktiflik===false ? "none": "inherit" }}>
 							<NavLink activeClassName="active" className="nav-link" to="/profil">Profil</NavLink>
 						</li>
-						<li className="nav-item">
+						<li className="nav-item" style={{ display : aktiflik===true ? "none": "inherit" }}>
 							<NavLink activeClassName="active" className="nav-link" to="/giris-yap">Giriş Yap</NavLink>
 						</li>
-						<li className="nav-item">
+						<li className="nav-item" style={{ display : aktiflik===true ? "none": "inherit" }}>
 							<NavLink activeClassName="active" className="nav-link" to="/kayit-ol">Kayıt Ol</NavLink>
 						</li>
 					</ul>
