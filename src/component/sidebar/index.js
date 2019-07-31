@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Auth from './auth/';
 
 const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
@@ -7,20 +8,21 @@ const Sidebar = ({ posts, setPosts }) => {
         e.preventDefault();
         let kim = "Kim?";
         let tarih = tarihDüzenle(new Date());
-        text.current.value==='' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, kim, tarih);
+        text.current.value === '' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, kim, tarih);
         text.current.value = '';
     }
 
     const tarihDüzenle = tarih => {
-        let aylar = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs",
+        let aylar = [
+            "Ocak", "Şubat", "Mart", "Nisan", "Mayıs",
             "Haziran", "Temmuz", "Ağustos", "Eylül",
-            "Ekim", "Kasım", "Aralık"];
+            "Ekim", "Kasım", "Aralık"
+        ];
         let gün = tarih.getDate();
         let aySayi = tarih.getMonth();
         let yil = tarih.getFullYear();
 
         return gün + ' ' + aylar[aySayi] + ' ' + yil;
-
     }
 
     const yazdir = (value, kim, tarih) => {
@@ -29,15 +31,18 @@ const Sidebar = ({ posts, setPosts }) => {
     }
 
     return (
-        <form className="card mt-sm-4 mb-sm-6">
-            <h5 className="card-header">Paylaşımınız</h5>
-            <div className="card-body">
-                <div className="form-group">
-                    <textarea ref={text} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div className="mt-sm-4 mb-sm-6">
+            <Auth />
+            <form className="card mt-sm-4 mb-sm-6">
+                <h5 className="card-header">Paylaşımınız</h5>
+                <div className="card-body">
+                    <div className="form-group">
+                        <textarea ref={text} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" onClick={gonder} className="btn btn-primary form-control">Güncelemeyi Ekle</button>
                 </div>
-                <button type="submit" onClick={gonder} className="btn btn-primary form-control">Güncelemeyi Ekle</button>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }
 
