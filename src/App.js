@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom'
+import axios from 'axios';
 
 import Header from './component/header';
 import Content from './component/content/';
@@ -10,11 +11,25 @@ import Footer from './component/footer/';
 const App = () => {
 
 
-  const [posts, setPosts] = useState([
-    { id: 1, text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat", tarih: "31 Temmuz 2019" },
-    { id: 2, text: "Lorem1 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat2", tarih: "21 Temmuz 2019" },
-    { id: 3, text: "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat1", tarih: "11 Temmuz 2019" },
-  ])
+  // { id: 1, text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat", tarih: "31 Temmuz 2019" },
+  // { id: 2, text: "Lorem1 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat2", tarih: "21 Temmuz 2019" },
+  // { id: 3, text: "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat1", tarih: "11 Temmuz 2019" },
+  
+  const [posts, setPosts] = useState([])
+
+  useEffect( () =>{
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:3300/v1/post/',
+      );
+
+      setPosts(result.data);
+    };
+
+    fetchData();
+  }, []);
+
+
   return (
     <BrowserRouter>
       <Header />
