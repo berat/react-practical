@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Content = ({ posts }) => {
+const Content = ({ posts, loading }) => {
 
     const Goster = ({ yazi }) =>
         <li key={yazi._id} className="card mt-sm-4 mb-sm-6">
@@ -11,6 +11,7 @@ const Content = ({ posts }) => {
         </li>
 
     return (
+        loading ? 'yükleniyor' :
         <ul>
             {posts.map((yazdir) => (
                 <Goster yazi={yazdir} />

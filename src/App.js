@@ -38,8 +38,7 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            { load ? '<h1>geliyor</h1>' :
-            <Content posts={posts} /> }
+            <Content posts={posts} loading={load} /> }
           </div>
           <div className="col-4">
             <Sidebar posts={posts} setPosts={setPosts} />
