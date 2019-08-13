@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import GitHubButton from 'react-github-btn'
 import Auth from './auth/';
+import Axios from 'axios';
 
 const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
@@ -11,6 +12,8 @@ const Sidebar = ({ posts, setPosts }) => {
         let tarih = tarihDüzenle(new Date());
         text.current.value === '' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, kim, tarih);
         text.current.value = '';
+
+
     }
 
     const tarihDüzenle = tarih => {
@@ -27,6 +30,14 @@ const Sidebar = ({ posts, setPosts }) => {
     }
 
     const yazdir = (value, kim, tarih) => {
+
+        Axios.post("https://practical-react-server.herokuapp.com/v1/post/paylas", { post: value, kim: kim, date: tarih })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         const newPosts = [{ post: value, kim: kim, date: tarih }, ...posts];
         setPosts(newPosts);
     }

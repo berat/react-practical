@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Login from './login';
 import Register from './register';
 import Forget from './forget';
+import Welcome from './welcome';
 
 const Auth = () => {
 
@@ -12,7 +13,9 @@ const Auth = () => {
             ? <Login setAuthStatus={setAuthStatus} />
             : autStatus === 1
             ? <Register setAuthStatus={setAuthStatus} />
-            : <Forget setAuthStatus={setAuthStatus} />
+            : autStatus === 2
+            ? <Forget setAuthStatus={setAuthStatus} />
+            : <Welcome />
     );
 }
 
