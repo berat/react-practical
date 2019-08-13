@@ -16,6 +16,7 @@ const App = () => {
   // { id: 3, text: "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat1", tarih: "11 Temmuz 2019" },
 
   const [posts, setPosts] = useState([])
+  const [load, setLoad] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +24,7 @@ const App = () => {
         'https://practical-react-server.herokuapp.com/v1/post/',
       );
       console.log(result.data)
+      setLoad(false);
       setPosts(result.data);
     };
 
@@ -36,7 +38,8 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <Content posts={posts} />
+            { load ? '<h1>geliyor</h1' :
+            <Content posts={posts} /> }
           </div>
           <div className="col-4">
             <Sidebar posts={posts} setPosts={setPosts} />
