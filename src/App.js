@@ -38,7 +38,7 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <Content posts={posts} loading={load} /> }
+            <Content posts={posts} loading={load} />
           </div>
           <div className="col-4">
             <Sidebar posts={posts} setPosts={setPosts} />
