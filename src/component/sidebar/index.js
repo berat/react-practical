@@ -27,7 +27,7 @@ const Sidebar = ({ posts, setPosts }) => {
     }
 
     const yazdir = (value, kim, tarih) => {
-        const newPosts = [{ text: value, kim: kim, tarih: tarih }, ...posts];
+        const newPosts = [{ post: value, kim: kim, date: tarih }, ...posts];
         setPosts(newPosts);
     }
 

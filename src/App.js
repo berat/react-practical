@@ -14,15 +14,15 @@ const App = () => {
   // { id: 1, text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat", tarih: "31 Temmuz 2019" },
   // { id: 2, text: "Lorem1 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat2", tarih: "21 Temmuz 2019" },
   // { id: 3, text: "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.", kim: "Berat1", tarih: "11 Temmuz 2019" },
-  
+
   const [posts, setPosts] = useState([])
 
-  useEffect( () =>{
+  useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'http://localhost:3300/v1/post/',
+        'https://practical-react-server.herokuapp.com/v1/post/',
       );
-
+      console.log(result.data)
       setPosts(result.data);
     };
 
