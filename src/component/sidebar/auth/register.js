@@ -9,12 +9,12 @@ const Register = ({ setAuthStatus }) => {
         pass = useRef();
 
     const save = e => {
-        
+
         e.preventDefault();
-        Axios.post("https://practical-react-server.herokuapp.com/v1/auth/kayit-ol", { email: email.current.value, password: pass.current.value })
+        Axios.post("https://practical-react-server.herokuapp.com/v1/auth/kayit-ol", { nickName: nickName.current.value, email: email.current.value, password: pass.current.value })
             .then(function (response) {
                 console.log(response);
-                setAuthStatus(4);
+                setAuthStatus(0);
             })
             .catch(function (error) {
                 console.log(error);
