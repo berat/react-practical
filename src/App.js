@@ -38,7 +38,7 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            { load ? '<h1>geliyor</h1' :
+            { load ? '<h1>geliyor</h1>' :
             <Content posts={posts} /> }
           </div>
           <div className="col-4">
