@@ -2,18 +2,18 @@ import React, { useRef } from 'react';
 import GitHubButton from 'react-github-btn'
 import Auth from './auth/';
 import Axios from 'axios';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+
 
 const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
-
+    
     const gonder = e => {
         e.preventDefault();
-        let kim = "Kim?";
         let tarih = tarihDüzenle(new Date());
-        text.current.value === '' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, kim, tarih);
+        text.current.value === '' ? alert("Bir şeyler yazın.") : yazdir(text.current.value, tarih);
         text.current.value = '';
-
-
     }
 
     const tarihDüzenle = tarih => {
@@ -29,17 +29,17 @@ const Sidebar = ({ posts, setPosts }) => {
         return gün + ' ' + aylar[aySayi] + ' ' + yil;
     }
 
-    const yazdir = (value, kim, tarih) => {
-
-        Axios.post("https://practical-react-server.herokuapp.com/v1/post/paylas", { post: value, kim: kim, date: tarih })
+    const yazdir = (value, tarih) => {
+        let whichUser = jwtDecode(Cookies.get("login")).userid;
+        console.log("deneme 1 : " + whichUser);
+        Axios.post("https://practical-react-server.herokuapp.com/v1/post/paylas", { post: value, who: whichUser })
             .then(function (response) {
-                console.log(response);
+                const newPosts = [{ _id: response.data.post._id, post: value, who: response.data.post.who, date: tarih }, ...posts];
+                setPosts(newPosts);
             })
             .catch(function (error) {
                 console.log(error);
             });
-        const newPosts = [{ post: value, kim: kim, date: tarih }, ...posts];
-        setPosts(newPosts);
     }
 
     return (

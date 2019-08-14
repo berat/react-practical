@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
+import jwtDecode from 'jwt-decode';
 
-const Login = ({ setAuthStatus }) => {
+const Login = ({ setAuthStatus, loginOl, setdefaultComp }) => {
+
+
+    const email = useRef(),
+        pass = useRef();
+
+    const giris = e => {
+        e.preventDefault();
+
+        Axios.post("https://practical-react-server.herokuapp.com/v1/auth/giris-yap", { email: email.current.value, password: pass.current.value })
+            .then(function (response) {
+                console.log(response);
+                loginOl(response.data.token);
+                let coz = jwtDecode(response.data.token);
+                console.log(coz)
+                setAuthStatus(4);
+                setdefaultComp(4)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     return (
         <div className="card">
             <div className="card-header">Giriş Yap</div>
             <div className="card-body">
                 <form>
                     <div className="form-group">
-                        <input type="text" minLength="1" maxLength="16" className="form-control" id="userName" placeholder="Kullanıcı Adınız" />
+                        <input type="text" ref={email} minLength="1" className="form-control" id="userName" placeholder="Kullanıcı Adınız" />
                     </div>
                     <div className="form-group">
-                        <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Şifreniz" />
+                        <input type="password" ref={pass} className="form-control" id="exampleInputPassword1" placeholder="Şifreniz" />
                     </div>
                     <small id="emailHelp" className="form-text text-muted mt-n2 mb-sm-2"><Link onClick={() => { setAuthStatus(2) }}>Şifremi Unuttum</Link></small>
-                    <button type="submit" className="form-control btn btn-primary">Giriş Yap</button>
+                    <button type="submit" onClick={giris} className="form-control btn btn-primary">Giriş Yap</button>
                     <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın yok mu?<Link onClick={() => { setAuthStatus(1) }}> Kayıt Ol</Link></small>
                 </form>
 
