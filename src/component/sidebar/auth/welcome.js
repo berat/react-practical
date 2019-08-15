@@ -5,7 +5,8 @@ const Welcome = ({ setAuthStatus,deleteLogin,deleteDefaultComp, defaultComp}) =>
 
     const cikisYap = e => {
         deleteLogin()
-        setAuthStatus(0)
+        setAuthStatus(0);
+        window.location.reload(); 
         deleteDefaultComp(0)
     }
 

@@ -14,10 +14,8 @@ const Login = ({ setAuthStatus, loginOl, setdefaultComp }) => {
 
         Axios.post("https://practical-react-server.herokuapp.com/v1/auth/giris-yap", { email: email.current.value, password: pass.current.value })
             .then(function (response) {
-                console.log(response);
                 loginOl(response.data.token);
-                let coz = jwtDecode(response.data.token);
-                console.log(coz)
+                window.location.reload(); 
                 setAuthStatus(4);
                 setdefaultComp(4)
             })

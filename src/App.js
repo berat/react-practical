@@ -18,7 +18,6 @@ const App = () => {
       const result = await axios(
         'https://practical-react-server.herokuapp.com/v1/post/',
       );
-      console.log(result.data)
       setLoad(false);
       setPosts(result.data);
     };

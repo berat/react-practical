@@ -8,6 +8,7 @@ import jwtDecode from 'jwt-decode';
 
 const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
+
     
     const gonder = e => {
         e.preventDefault();
@@ -45,6 +46,7 @@ const Sidebar = ({ posts, setPosts }) => {
     return (
         <div className="mt-sm-4 mb-sm-6">
             <Auth />
+            {Cookies.get("login") ? 
             <form className="card mt-sm-4 mb-sm-6">
                 <h5 className="card-header">Paylaşımınız</h5>
                 <div className="card-body">
@@ -54,6 +56,7 @@ const Sidebar = ({ posts, setPosts }) => {
                     <button type="submit" onClick={gonder} className="btn btn-primary form-control">Güncelemeyi Ekle</button>
                 </div>
             </form>
+            : console.log("2")}
             <div className="mt-sm-4 text-center">
                 <GitHubButton href="https://github.com/berat/react-practical" data-size="large" data-show-count="true" aria-label="Star berat/react-practical on GitHub">Star</GitHubButton>
             </div>
