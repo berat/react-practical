@@ -5,7 +5,6 @@ import jwtDecode from 'jwt-decode';
 
 const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
 
-    console.log(posts)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
 
@@ -36,8 +35,6 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
     const sil = (e) => {
         var id = e.target.getAttribute("data-id")
 
-
-        console.log(id)
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
             .then(function (response) {
                 const newPosts = [...posts];
