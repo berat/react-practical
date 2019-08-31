@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import axios from 'axios';
 
 import Header from './component/header';
 import Content from './component/content/';
@@ -11,20 +10,9 @@ import Footer from './component/footer/';
 const App = () => {
 
   const [posts, setPosts] = useState([])
-  const [owner] = useState([])
+  const [owner,setOwner] = useState([])
   const [load, setLoad] = useState(true)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        'https://practical-react-server.herokuapp.com/v1/post/',
-      );
-      setLoad(false);
-      setPosts(result.data);
-    };
-
-    fetchData();
-  }, []);
 
 
   return (
@@ -33,7 +21,7 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <Content posts={posts} setPosts={setPosts} owner={owner} loading={load} />
+            <Content posts={posts} setLoad={setLoad} setPosts={setPosts} owner={owner} setOwner={setOwner} loading={load} />
           </div>
           <div className="col-4">
             <Sidebar posts={posts} setPosts={setPosts} />
