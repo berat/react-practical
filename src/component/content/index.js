@@ -15,20 +15,22 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
         setPosts(result.data);
 
 
-        const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
+        if (Boolean(Cookies.get("login")) === true) {
+            const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
 
-        const userid = jwtDecode(Cookies.get("login")).userid
-        const user = response.data.filter((dataItem) => (dataItem._id === userid));
-        const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
-        const nickName = userNickname.slice(2, -2)
+            const userid = jwtDecode(Cookies.get("login")).userid
+            const user = response.data.filter((dataItem) => (dataItem._id === userid));
+            const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
+            const nickName = userNickname.slice(2, -2)
 
-        // const deneme1 = result.data.filter((data) => (data.who === nickName))
-        // await deneme1 ? setOwner([{ who: nickName, status: true }]) : setOwner([{ status: false }])
+            // const deneme1 = result.data.filter((data) => (data.who === nickName))
+            // await deneme1 ? setOwner([{ who: nickName, status: true }]) : setOwner([{ status: false }])
 
-        const newOwner = result.data.some(data => data.who === nickName) ?
-            [{ who: nickName, status: true }] :
-            [{ status: false }];
-        setOwner(newOwner)
+            const newOwner = result.data.some(data => data.who === nickName) ?
+                [{ who: nickName, status: true }] :
+                [{ status: false }];
+            setOwner(newOwner)
+        }
 
     }, [])
 
@@ -60,7 +62,7 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
 
                         {owner.map((data) => (
                             data.who === yazdir.who ?
-                                <b data-id={yazdir._id} onClick={sil}> Sil  </b>: null))
+                                <b data-id={yazdir._id} onClick={sil}> Sil  </b> : null))
                         }
                         <div className="card-body">
                             <blockquote className="blockquote mb-0"><p>{yazdir.post}</p><footer className="blockquote-footer"><b>{yazdir.who}</b> <cite>| {yazdir.date}</cite></footer>
