@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -11,17 +11,18 @@ const Login = ({ setAuthStatus, loginOl, setdefaultComp }) => {
 
     const giris = e => {
         e.preventDefault();
-
         Axios.post("https://practical-react-server.herokuapp.com/v1/auth/giris-yap", { email: email.current.value, password: pass.current.value })
             .then(function (response) {
-                loginOl(response.data.token);
-                window.location.reload(); 
-                setAuthStatus(4);
-                setdefaultComp(4)
+                if(response.data.status){
+                    loginOl(response.data.token);
+                    window.location.reload(); 
+                    setAuthStatus(4);
+                    setdefaultComp(4)
+                }
+                else{
+                    alert(response.data.message)
+                }
             })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     return (

@@ -32,10 +32,9 @@ const Sidebar = ({ posts, setPosts }) => {
 
     const yazdir = (value, tarih) => {
         let whichUser = jwtDecode(Cookies.get("login")).userid;
-        console.log("deneme 1 : " + whichUser);
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/paylas", { post: value, who: whichUser })
             .then(function (response) {
-                const newPosts = [{ _id: response.data.post._id, post: value, who: response.data.post.who, date: tarih }, ...posts];
+                const newPosts = [...posts, { _id: response.data.post._id, post: value, who: response.data.post.who, date: tarih }];
                 setPosts(newPosts);
             })
             .catch(function (error) {
