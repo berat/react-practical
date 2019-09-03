@@ -57,7 +57,7 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
 
 
                         <div className="card-body">
-                            <blockquote className="blockquote mb-0"><p>{yazdir.post}</p><footer className="blockquote-footer"><b>{yazdir.who}</b> <cite>| {yazdir.date}
+                            <blockquote className="blockquote mb-0"><p>{yazdir.post.substr(0,280)}</p><footer className="blockquote-footer"><b>{yazdir.who}</b> <cite>| {yazdir.date}
                             {owner.map((data) => (
                                 data.who === yazdir.who ?
                                     <b data-id={yazdir._id} onClick={sil}> Sil  </b> : null))

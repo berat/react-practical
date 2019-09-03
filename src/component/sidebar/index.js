@@ -8,7 +8,6 @@ import jwtDecode from 'jwt-decode';
 
 const Sidebar = ({ posts, setPosts }) => {
     const text = useRef();
-
     
     const gonder = e => {
         e.preventDefault();
@@ -50,7 +49,7 @@ const Sidebar = ({ posts, setPosts }) => {
                 <h5 className="card-header">Paylaşımınız</h5>
                 <div className="card-body">
                     <div className="form-group">
-                        <textarea ref={text} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea ref={text} maxLength="280" className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <button type="submit" onClick={gonder} className="btn btn-primary form-control">Güncelemeyi Ekle</button>
                 </div>

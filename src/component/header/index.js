@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Header = () => {
 
 	const [toggleIsVisible, setToggleIsVisible] = useState(false);
 	const [aktiflik, setAktiflik] = useState(false);
+
+	useEffect(() => {
+		
+
+        if(Cookies.get("login")){
+			setAktiflik(true)
+		}
+		
+	}, [])
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
