@@ -70,7 +70,7 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
                 <Pagination
                     posts={posts}
                     Show={show}
-                    displayNumber="5"
+                    displayNumber="7"
                     previousText="Önceki"
                     nextText="Sonraki"
                 />
