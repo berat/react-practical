@@ -9,7 +9,7 @@ const Pagination = ({ posts, displayNumber, previousText, nextText, Show}) => {
     const nextTextVariable = nextText ? nextText : "Next"
     const transient = posts.slice(0).reverse()
     const fixed = displayNumber ? parseInt(displayNumber) : 5;
-    const lastElem = Number(transient.length / fixed).toFixed(0)
+    const lastElem = Number(Math.ceil(transient.length / fixed))
 
     const [current, setCurrent] = useState(1);
 
@@ -48,6 +48,7 @@ const Pagination = ({ posts, displayNumber, previousText, nextText, Show}) => {
         else {
             setCurrent(parseInt(value))
         }
+        console.log(transient.length / fixed)
     }
 
     const Previous = () => (
