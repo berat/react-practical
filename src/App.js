@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom'
 
 import Header from './component/header';
 import Content from './component/content/';
@@ -16,7 +15,7 @@ const App = () => {
 
 
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <div className="container">
         <div className="row">
@@ -29,7 +28,7 @@ const App = () => {
         </div>
       </div>
       <Footer />
-    </BrowserRouter>
+      </>
   )
 }
 

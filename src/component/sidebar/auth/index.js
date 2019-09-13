@@ -11,6 +11,7 @@ const Auth = () => {
     const [defaultComp, setdefaultComp, deleteDefaultComp] = useCookie('defaultComp', 0)
     const [autStatus, setAuthStatus] = useState(defaultComp);
 
+
     return (
         autStatus === 0
             ? <Login setAuthStatus={setAuthStatus} loginOl={setLogin} setdefaultComp={setdefaultComp} />
@@ -21,5 +22,7 @@ const Auth = () => {
                     : <Welcome setAuthStatus={setAuthStatus} deleteLogin={deleteLogin} defaultComp={defaultComp} deleteDefaultComp={deleteDefaultComp} />
     );
 }
+
+// eğer login varsa giremeyecek ama diğer türlü status ayarlamaya gerek yok. Onu linkler ile halledebilirsin. Böylelikle url işini halletmiş olacaksın.
 
 export default Auth;
