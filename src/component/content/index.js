@@ -82,7 +82,7 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
             <ul>
                 {yazilar.map((data) => (
                     <Pagination
-                        data={data}
+                        data={data.slice(0).reverse()}
                         Show={Show}
                         displayNumber="6"
                         previousText="Önceki"
