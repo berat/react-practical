@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Axios from 'axios';
+import {useSelector} from 'react-redux';
 
 const Welcome = ({ setAuthStatus,deleteLogin,deleteDefaultComp, defaultComp}) => {
+
 
     const [kimki,setKimki] = useState(false)
 
