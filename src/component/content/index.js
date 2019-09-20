@@ -7,11 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
 
-    const yazilar = useSelector( state => state.posts )
-    const deneme = useSelector( (state) => state.posts[0])
+    const yazilar = useSelector((state) => (state.posts))
     const dispatch = useDispatch();
 
-    useEffect( () => {
+    useEffect(() => {
         async function senkron() {
             const result = await Axios(
                 'https://practical-react-server.herokuapp.com/v1/post/',
@@ -63,7 +62,7 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
             });
     }
 
-    const show = (value) => (
+    const Show = (value) => (
         <li className="card mt-sm-4 mb-sm-6">
             <div className="card-body">
                 <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b>{value.who}</b> <cite>| {value.date}
@@ -76,19 +75,20 @@ const Content = ({ posts, setLoad, setPosts, loading, owner, setOwner }) => {
             </div>
         </li>
     )
-    
+
     return (
         loading ? 'yükleniyor' :
 
             <ul>
-                {console.log(deneme.length)}
-                <Pagination
-                    data={yazilar}
-                    Show={show}
-                    displayNumber="6"
-                    previousText="Önceki"
-                    nextText="Sonraki"
-                />
+                {yazilar.map((data) => (
+                    <Pagination
+                        data={data}
+                        Show={Show}
+                        displayNumber="6"
+                        previousText="Önceki"
+                        nextText="Sonraki"
+                    />
+                ))}
             </ul>
     )
 }
