@@ -8,11 +8,6 @@ import Footer from './component/footer/';
 
 const App = () => {
 
-  const [posts, setPosts] = useState([])
-  const [owner,setOwner] = useState([])
-  const [load, setLoad] = useState(true)
-
-
 
   return (
     <>
@@ -20,10 +15,10 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <Content posts={posts} setLoad={setLoad} setPosts={setPosts} owner={owner} setOwner={setOwner} loading={load} />
+            <Content />
           </div>
           <div className="col-4">
-            <Sidebar posts={posts} setPosts={setPosts} />
+            <Sidebar />
           </div>
         </div>
       </div>

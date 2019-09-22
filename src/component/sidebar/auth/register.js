@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-const Register = ({ setAuthStatus }) => {
+const Register = ({ setdefaultComp }) => {
 
     const nickName = useRef(),
         email = useRef(),
@@ -14,7 +14,6 @@ const Register = ({ setAuthStatus }) => {
         Axios.post("https://practical-react-server.herokuapp.com/v1/auth/kayit-ol", { nickName: nickName.current.value, email: email.current.value, password: pass.current.value })
             .then(function (response) {
                 console.log(response);
-                setAuthStatus(0);
             })
             .catch(function (error) {
                 console.log(error);
@@ -36,7 +35,7 @@ const Register = ({ setAuthStatus }) => {
                         <input type="password" ref={pass} className="form-control" id="exampleInputPassword1" placeholder="Şifreniz" />
                     </div>
                     <button type="submit" onClick={save} className="form-control btn btn-primary">Kayıt Ol</button>
-                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın var mı?<Link onClick={() => { setAuthStatus(0) }}> Giriş Yap</Link></small>
+                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın var mı?<Link onClick={() => { setdefaultComp(0) }}> Giriş Yap</Link></small>
                 </form>
 
             </div>

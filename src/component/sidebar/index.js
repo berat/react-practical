@@ -4,10 +4,13 @@ import Auth from './auth/';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
+import { useSelector, useDispatch } from 'react-redux';
 
 
-const Sidebar = ({ posts, setPosts }) => {
+const Sidebar = () => {
     const text = useRef();
+    const yazilar = useSelector((state) => (state.Reducer.posts))
+    const dispatch = useDispatch();
     
     const gonder = e => {
         e.preventDefault();
@@ -33,8 +36,12 @@ const Sidebar = ({ posts, setPosts }) => {
         let whichUser = jwtDecode(Cookies.get("login")).userid;
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/paylas", { post: value, who: whichUser })
             .then(function (response) {
-                const newPosts = [...posts, { _id: response.data.post._id, post: value, who: response.data.post.who, date: tarih }];
-                setPosts(newPosts);
+                const newPosts = [...yazilar, { _id: response.data.post._id, post: value, who: response.data.post.who, date: tarih }];
+                dispatch({
+                    type: 'EKLE',
+                    payload: newPosts
+                })
+                console.log(yazilar)
             })
             .catch(function (error) {
                 console.log(error);

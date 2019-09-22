@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 import Axios from 'axios';
 import {useSelector} from 'react-redux';
 
-const Welcome = ({ setAuthStatus,deleteLogin,deleteDefaultComp, defaultComp}) => {
+const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
 
 
     const [kimki,setKimki] = useState(false)
@@ -22,7 +22,6 @@ const Welcome = ({ setAuthStatus,deleteLogin,deleteDefaultComp, defaultComp}) =>
 
     const cikisYap = e => {
         deleteLogin()
-        setAuthStatus(0);
         Cookies.remove("login")
         Cookies.remove("defaultComp")
         window.location.reload(); 

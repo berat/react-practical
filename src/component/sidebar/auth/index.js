@@ -4,25 +4,37 @@ import Register from './register';
 import Forget from './forget';
 import Welcome from './welcome';
 import useCookie from '@devhammed/use-cookie'
+import { useSelector, useDispatch } from 'react-redux';
 
 const Auth = () => {
 
     const [login, setLogin, deleteLogin] = useCookie('login', null)
     const [defaultComp, setdefaultComp, deleteDefaultComp] = useCookie('defaultComp', 0)
-    const [autStatus, setAuthStatus] = useState(defaultComp);
 
+
+    const defaultComps = useSelector((state) => (state.authReducer.defaultComp))
+    const dispatch = useDispatch();
+
+    dispatch({
+        type: 'LOGINOL',
+        payload: login
+    })
+    dispatch(
+    {
+        type: 'COMPONENT',
+        payload: defaultComp
+    })
+
+    
 
     return (
-        autStatus === 0
-            ? <Login setAuthStatus={setAuthStatus} loginOl={setLogin} setdefaultComp={setdefaultComp} />
-            : autStatus === 1
-                ? <Register setAuthStatus={setAuthStatus} />
-                : autStatus === 2
-                    ? <Forget setAuthStatus={setAuthStatus} />
-                    : <Welcome setAuthStatus={setAuthStatus} deleteLogin={deleteLogin} defaultComp={defaultComp} deleteDefaultComp={deleteDefaultComp} />
+        defaultComps === 0
+            ? <Login loginOl={setLogin} setdefaultComp={setdefaultComp} />
+            : defaultComps === 1
+                ? <Register setdefaultComp={setdefaultComp} />
+                : defaultComps === 2
+                    ? <Forget />
+                    : <Welcome deleteLogin={deleteLogin} defaultComp={defaultComp} deleteDefaultComp={deleteDefaultComp} />
     );
 }
-
-// eğer login varsa giremeyecek ama diğer türlü status ayarlamaya gerek yok. Onu linkler ile halledebilirsin. Böylelikle url işini halletmiş olacaksın.
-
 export default Auth;
