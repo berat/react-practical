@@ -1,25 +1,17 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
 
 const Login = ({ loginOl, setdefaultComp }) => {
 
-
     const email = useRef(),
         pass = useRef();
-
-
-
-    const login = useSelector((state) => (state.authReducer.login))
-    const dispatch = useDispatch();
 
     const giris = e => {
         e.preventDefault();
         Axios.post("https://practical-react-server.herokuapp.com/v1/auth/giris-yap", { email: email.current.value, password: pass.current.value })
             .then(function (response) {
                 if (response.data.status) {
-                    console.log(response.data.token)
                     loginOl(response.data.token);
                     window.location.reload();
                     setdefaultComp(4)
@@ -30,7 +22,6 @@ const Login = ({ loginOl, setdefaultComp }) => {
             })
     }
 
-    console.log(login)
     return (
         <div className="card">
             <div className="card-header">Giriş Yap</div>

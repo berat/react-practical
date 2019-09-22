@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Axios from 'axios';
-import {useSelector} from 'react-redux';
 
 const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
 
@@ -11,13 +10,16 @@ const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
     const [kimki,setKimki] = useState(false)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( async () => {
-        let userid = jwtDecode(Cookies.get("login")).userid
-        const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
-        const user = response.data.filter((dataItem) => (dataItem._id === userid));
-        const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
-        const nickName = userNickname.slice(2, -2)
-        setKimki(nickName)
+    useEffect( () => {
+        async function senkron(){
+            let userid = jwtDecode(Cookies.get("login")).userid
+            const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
+            const user = response.data.filter((dataItem) => (dataItem._id === userid));
+            const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
+            const nickName = userNickname.slice(2, -2)
+            setKimki(nickName)
+        }
+        senkron()
     }, [])
 
     const cikisYap = e => {

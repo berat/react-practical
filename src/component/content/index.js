@@ -71,7 +71,7 @@ const Content = () => {
 
 
     const Show = (value) => (
-        <li className="card mt-sm-4 mb-sm-6">
+        <li key="1" className="card mt-sm-4 mb-sm-6">
             <div className="card-body">
                 <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b>{value.who}</b> <cite>| {value.date}
                     {owner.map((data) => (
