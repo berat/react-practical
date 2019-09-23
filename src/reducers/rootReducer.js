@@ -18,7 +18,7 @@ const auth = {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'EKLE':
-            let newPosts = [...state.posts, ...action.payload]
+            let newPosts = [...action.payload]
             return {
                 ...state,
                 posts: newPosts

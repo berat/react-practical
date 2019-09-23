@@ -9,7 +9,6 @@ const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
 
     const [kimki,setKimki] = useState(false)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect( () => {
         async function senkron(){
             let userid = jwtDecode(Cookies.get("login")).userid
@@ -34,7 +33,7 @@ const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
             <div className="card-header">Hoş Geldin</div>
             <div className="card-body">
                 <p> Merhaba <b>{kimki}</b>, Hoşgeldin.</p>
-                <Link onClick={cikisYap}>Çıkış Yap</Link>
+                <Link to="/" onClick={cikisYap}>Çıkış Yap</Link>
             </div>
         </div>
     )

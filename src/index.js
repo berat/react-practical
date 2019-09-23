@@ -10,7 +10,7 @@ import { reducer } from './reducers/rootReducer';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './main.css';
 
-const store = createStore(reducer, window.devToolsExtension && window.devToolsExtension());
+const store = createStore(reducer);
 
 ReactDOM.render(<Router><Redirect strict from="/" to="/home" /><Provider store={store}><App /></Provider></Router>, document.getElementById('root'));
 

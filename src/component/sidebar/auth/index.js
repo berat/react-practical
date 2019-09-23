@@ -4,8 +4,8 @@ import Register from './register';
 import Forget from './forget';
 import Welcome from './welcome';
 import useCookie from '@devhammed/use-cookie'
-import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
 const Auth = () => {
 
@@ -13,18 +13,12 @@ const Auth = () => {
     const [defaultComp, setdefaultComp, deleteDefaultComp] = useCookie('defaultComp', 0)
 
 
-    const defaultComps = useSelector((state) => (state.authReducer.defaultComp))
     const dispatch = useDispatch();
 
     dispatch({
         type: 'LOGINOL',
         payload: login
     })
-    // dispatch(
-    //     {
-    //         type: 'COMPONENT',
-    //         payload: defaultComp
-    //     })
 
 
     return (
