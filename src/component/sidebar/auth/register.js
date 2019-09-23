@@ -34,7 +34,7 @@ const Register = ({ setdefaultComp }) => {
                         <input type="password" ref={pass} className="form-control" id="exampleInputPassword1" placeholder="Şifreniz" />
                     </div>
                     <button type="submit" onClick={save} className="form-control btn btn-primary">Kayıt Ol</button>
-                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın var mı?<Link onClick={() => { setdefaultComp(0) }}> Giriş Yap</Link></small>
+                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın var mı?<Link to="/home" onClick={() => { setdefaultComp(0) }}> Giriş Yap</Link></small>
                 </form>
 
             </div>

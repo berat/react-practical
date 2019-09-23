@@ -5,6 +5,7 @@ import Forget from './forget';
 import Welcome from './welcome';
 import useCookie from '@devhammed/use-cookie'
 import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 const Auth = () => {
 
@@ -19,22 +20,44 @@ const Auth = () => {
         type: 'LOGINOL',
         payload: login
     })
-    dispatch(
-    {
-        type: 'COMPONENT',
-        payload: defaultComp
-    })
+    // dispatch(
+    //     {
+    //         type: 'COMPONENT',
+    //         payload: defaultComp
+    //     })
 
-    
 
     return (
-        defaultComps === 0
-            ? <Login loginOl={setLogin} setdefaultComp={setdefaultComp} />
-            : defaultComps === 1
-                ? <Register setdefaultComp={setdefaultComp} />
-                : defaultComps === 2
-                    ? <Forget />
-                    : <Welcome deleteLogin={deleteLogin} defaultComp={defaultComp} deleteDefaultComp={deleteDefaultComp} />
-    );
+        <>
+            <Route path="/home" component={() => {
+                if (login !== null) {
+                    setdefaultComp(4);
+                    return <Welcome deleteLogin={deleteLogin} defaultComp={defaultComp} deleteDefaultComp={deleteDefaultComp} />
+                }
+                else {
+                    setdefaultComp(0);
+                    return <Login loginOl={setLogin} setdefaultComp={setdefaultComp} />
+                }
+
+            }} />
+            <Route path="/sign-up" component={() => {
+                if(login === null){
+                    setdefaultComp(1)
+                    return <Register setdefaultComp={setdefaultComp} />
+                }else{
+                    return <Redirect to="/home" />
+                }
+            }} />
+            <Route path="/forget" component={() => {
+                if(login === null){
+                    setdefaultComp(2)
+                    return <Forget />
+                }else{
+                    return <Redirect to="/home" />
+                }
+            }} />
+
+        </>
+    )
 }
 export default Auth;

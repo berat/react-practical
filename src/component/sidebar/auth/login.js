@@ -33,9 +33,9 @@ const Login = ({ loginOl, setdefaultComp }) => {
                     <div className="form-group">
                         <input type="password" ref={pass} className="form-control" id="exampleInputPassword1" placeholder="Şifreniz" />
                     </div>
-                    <small id="emailHelp" className="form-text text-muted mt-n2 mb-sm-2"><Link onClick={() => { setdefaultComp(2) }}>Şifremi Unuttum</Link></small>
+                    <small id="emailHelp" className="form-text text-muted mt-n2 mb-sm-2"><Link to="/forget" onClick={() => { setdefaultComp(2) }}>Şifremi Unuttum</Link></small>
                     <button type="submit" onClick={giris} className="form-control btn btn-primary">Giriş Yap</button>
-                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın yok mu?<Link onClick={() => { setdefaultComp(1) }}> Kayıt Ol</Link></small>
+                    <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Hesabın yok mu?<Link to="/sign-up" onClick={() => { setdefaultComp(1) }}> Kayıt Ol</Link></small>
                 </form>
 
             </div>
