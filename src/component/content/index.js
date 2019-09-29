@@ -12,13 +12,15 @@ const Content = () => {
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
 
+
+    const currentPath = () => window.location.pathname
     useEffect(() => {
         async function senkron() {
             const result = await Axios(
                 'https://practical-react-server.herokuapp.com/v1/post/',
             );
             // setLoad(false);
-            dispatch({type: 'DEGISTIR'})
+            dispatch({ type: 'DEGISTIR' })
             dispatch({
                 type: 'EKLE',
                 payload: result.data
@@ -85,9 +87,11 @@ const Content = () => {
 
 
     return (
-        loading ? 'yükleniyor' :
 
-            <ul>
+        currentPath === "/profil"
+            ? loading ? 'yükleniyor' : 'deneme'
+            : loading ? 'yükleniyor' :
+                <ul>
                     <Pagination
                         data={yazilar.slice(0).reverse()}
                         Show={Show}
@@ -95,8 +99,7 @@ const Content = () => {
                         previousText="Önceki"
                         nextText="Sonraki"
                     />
-                
-            </ul>
+                </ul>
     )
 }
 
