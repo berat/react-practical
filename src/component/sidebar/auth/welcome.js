@@ -1,25 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import Axios from 'axios';
+import { useSelector } from 'react-redux';
 
-const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
+const Welcome = ({ deleteLogin,deleteDefaultComp}) => {
 
-
-    const [kimki,setKimki] = useState(false)
-
-    useEffect( () => {
-        async function senkron(){
-            let userid = jwtDecode(Cookies.get("login")).userid
-            const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
-            const user = response.data.filter((dataItem) => (dataItem._id === userid));
-            const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
-            const nickName = userNickname.slice(2, -2)
-            setKimki(nickName)
-        }
-        senkron()
-    }, [])
+    const kim = useSelector((state) => (state.Reducer.owner))
 
     const cikisYap = e => {
         deleteLogin()
@@ -32,7 +18,9 @@ const Welcome = ({ deleteLogin,deleteDefaultComp, defaultComp}) => {
         <div className="card">
             <div className="card-header">Hoş Geldin</div>
             <div className="card-body">
-                <p> Merhaba <b>{kimki}</b>, Hoşgeldin.</p>
+                <p> Merhaba <b>{
+                    kim.map( value => value.who)
+                }</b>, Hoşgeldin.</p>
                 <Link to="/" onClick={cikisYap}>Çıkış Yap</Link>
             </div>
         </div>
