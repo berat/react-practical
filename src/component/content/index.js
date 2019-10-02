@@ -55,7 +55,6 @@ const Content = () => {
                     el._id === id ? value = index : value = null
                 })
                 if (value != null) newPosts.splice(value, 1)
-                // setPosts(newPosts);
                 dispatch({
                     type: 'EKLE',
                     payload: newPosts
