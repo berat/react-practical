@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import GitHubButton from 'react-github-btn'
-import Auth from './auth/';
+import Auth from '../../Routers/sidebar.router';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';

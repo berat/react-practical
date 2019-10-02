@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import Axios from 'axios';
 
 const initialState = {
     posts: [],
@@ -15,6 +16,15 @@ const auth = {
     authStatus: 0
 }
 
+async function senkron() {
+
+    const result = await Axios(
+        'https://practical-react-server.herokuapp.com/v1/post/',
+    );
+    initialState.posts = result.data;
+    loading.load= false;
+} senkron()
+
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'EKLE':
@@ -25,7 +35,7 @@ const Reducer = (state = initialState, action) => {
 
             };
         case 'KONTROL':
-            let newOwner = [...state.owner, ...action.payload]
+            let newOwner = [...action.payload]
             return {
                 ...state,
                 owner: [...newOwner]
@@ -42,20 +52,25 @@ const loadReducer = (state = loading, action) => {
                 ...state,
                 load: !state.load
             }
+        case 'FALSEYAP':
+            return {
+                ...state,
+                load: false,
+            }
         default:
             return state
     }
 }
 
 const authReducer = (state = auth, action) => {
-    switch(action.type){
+    switch (action.type) {
         case 'LOGINOL':
             return {
                 ...state,
                 login: action.payload
             }
         case 'COMPONENT':
-            return{
+            return {
                 ...state,
                 defaultComp: action.payload
             }

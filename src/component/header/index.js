@@ -1,24 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import Axios from 'axios';
+import { useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 
 const Header = () => {
 
 	const [toggleIsVisible, setToggleIsVisible] = useState(false);
+	const owner = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2,-2)
+	// const owner = useSelector((state) => (state.Reducer.owner))
+
 	const [aktiflik, setAktiflik] = useState(false);
 
-	useEffect(() => {
+
+	useEffect(async () => {
+		
+		const result = await Axios('https://practical-react-server.herokuapp.com/v1/auth/',);
+		const filterData = await result.data.filter(value => value.nickName==owner)
+		// console.log(await result.data.filter(data=> data.nickName=="Berat"))
 
 		if (Cookies.get("login")) {
 			setAktiflik(true)
 		}
 
 	}, [])
-
+	
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
 			<div className="container">
-				<NavLink className="navbar-brand" to="/">react-practical</NavLink>
+				<NavLink className="navbar-brand" to="/home">react-practical</NavLink>
 				<button className="navbar-toggler" onClick={() => setToggleIsVisible(!toggleIsVisible)} type="button">
 					<span className="navbar-toggler-icon" />
 				</button>
@@ -28,7 +38,7 @@ const Header = () => {
 							<NavLink activeClassName="active" className="nav-link" to="/home">Ansayfa</NavLink>
 						</li>
 						<li className="nav-item" style={{ display: aktiflik === false ? "none" : "inherit" }}>
-							<NavLink activeClassName="active" className="nav-link" to="/profil">Profil</NavLink>
+							<NavLink activeClassName="active" className="nav-link" to={`/profile/${owner}`}>Profil</NavLink>
 						</li>
 						<li className="nav-item" style={{ display: aktiflik === true ? "none" : "inherit" }}>
 							<NavLink activeClassName="active" className="nav-link" to="/home">Giriş Yap</NavLink>

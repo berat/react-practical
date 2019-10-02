@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import Axios from 'axios'; 
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import React from 'react';
+import Axios from 'axios';
 import Pagination from 'pagination-react-hooks';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -11,42 +9,14 @@ const Content = () => {
     const owner = useSelector((state) => (state.Reducer.owner))
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
+	const profile = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2,-2)
 
-
+    const filtrele = yazilar.filter( value => value.who===profile  )
     console.log(loading)
-    useEffect(() => {
-
-        async function senkron() {
-
-            const result = await Axios(
-                'https://practical-react-server.herokuapp.com/v1/post/',
-            );
-
-            if (Boolean(Cookies.get("login")) === true) {
-                const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
-                const userid = jwtDecode(Cookies.get("login")).userid
-                const user = response.data.filter((dataItem) => (dataItem._id === userid));
-                const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
-                const nickName = userNickname.slice(2, -2)
-
-                const newOwner = result.data.some(data => data.who === nickName) ?
-                    [{ who: nickName, status: true }] :
-                    [{ status: false }];
-
-                dispatch({
-                    type: 'KONTROL',
-                    payload: newOwner
-                })
-            }
-        }
-        senkron()
-
-    }, [dispatch])
-
+    
 
     const sil = (e) => {
-        var id = e.target.getAttribute("data-id")
-
+        var id = e.target.getAttribute("data-id")    
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
             .then(function (response) {
                 const newPosts = [...yazilar];
@@ -80,20 +50,17 @@ const Content = () => {
         </li>
     )
 
-
-
     return (
-
         loading ? 'yükleniyor' :
-            <ul>
-                <Pagination
-                    data={yazilar.slice(0).reverse()}
-                    Show={Show}
-                    displayNumber="6"
-                    previousText="Önceki"
-                    nextText="Sonraki"
-                />
-            </ul>
+                <ul>
+                    <Pagination
+                        data={filtrele.slice(0).reverse()}
+                        Show={Show}
+                        displayNumber="6"
+                        previousText="Önceki"
+                        nextText="Sonraki"
+                    />
+                </ul>
     )
 }
 

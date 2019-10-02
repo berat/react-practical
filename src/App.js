@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Header from './component/header';
-import Content from './component/content/';
-import Sidebar from './component/sidebar/';
+import Content from './Routers/content.router';
+import Sidebar from './component/sidebar';
 import Footer from './component/footer/';
 
 
@@ -23,7 +23,7 @@ const App = () => {
         </div>
       </div>
       <Footer />
-      </>
+    </>
   )
 }
 
