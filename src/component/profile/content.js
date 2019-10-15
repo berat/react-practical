@@ -16,7 +16,6 @@ const Content = (match) => {
     const owner = useSelector((state) => (state.Reducer.owner))
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
-    // const profile = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2, -2)
 
     const findUser = () => (
         Axios.get("https://practical-react-server.herokuapp.com/v1/auth/")
@@ -51,7 +50,6 @@ const Content = (match) => {
                     el._id === id ? value = index : value = null
                 })
                 if (value != null) newPosts.splice(value, 1)
-                // setPosts(newPosts);
                 dispatch({
                     type: 'EKLE',
                     payload: newPosts
@@ -61,7 +59,6 @@ const Content = (match) => {
                 console.log(error);
             });
     }
-
 
     const Show = (value) => (
         <li key="1" className="card mt-sm-4 mb-sm-6">
