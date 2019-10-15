@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const Welcome = ({ deleteLogin,deleteDefaultComp}) => {
 
     const kim = useSelector((state) => (state.Reducer.owner))
-
+    console.log(kim)
     const cikisYap = e => {
         deleteLogin()
         Cookies.remove("login")

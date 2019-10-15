@@ -1,22 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import Pagination from 'pagination-react-hooks';
 import { useSelector, useDispatch } from 'react-redux';
 
-const Content = () => {
+import Error from '../error'
+
+const Content = (match) => {
+
+    const username = match.match.params.username;
 
     const yazilar = useSelector((state) => (state.Reducer.posts))
+    const [profilePost, setProfilePost] = useState([]);
+    const [redirect, setRedirect] = useState(false);
     const owner = useSelector((state) => (state.Reducer.owner))
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
-	const profile = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2,-2)
+    // const profile = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2, -2)
 
-    const filtrele = yazilar.filter( value => value.who===profile  )
-    console.log(loading)
-    
+    const findUser = () => (
+        Axios.get("https://practical-react-server.herokuapp.com/v1/auth/")
+            .then(response => {
+                const data = response.data;
+                return data.filter(value => value.nickName === username)
+            })
+    )
+
+    findUser()
+        .then((data) => {
+            if (data.length!==0) {
+                const filtrele = yazilar.filter(value => value.who === username)
+                return filtrele
+            }
+            else{
+                setRedirect(true)
+            }
+        })
+        .then((value) => setProfilePost(value))
+        .catch((err) => {
+            console.log(err)
+        })
 
     const sil = (e) => {
-        var id = e.target.getAttribute("data-id")    
+        var id = e.target.getAttribute("data-id")
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
             .then(function (response) {
                 const newPosts = [...yazilar];
@@ -49,18 +75,19 @@ const Content = () => {
             </div>
         </li>
     )
-
     return (
+
         loading ? 'yükleniyor' :
-                <ul>
-                    <Pagination
-                        data={filtrele.slice(0).reverse()}
-                        Show={Show}
-                        displayNumber="6"
-                        previousText="Önceki"
-                        nextText="Sonraki"
-                    />
-                </ul>
+            redirect===true ? <Error /> :
+            <ul>
+                <Pagination
+                    data={profilePost.slice(0).reverse()}
+                    Show={Show}
+                    displayNumber="6"
+                    previousText="Önceki"
+                    nextText="Sonraki"
+                />
+            </ul>
     )
 }
 

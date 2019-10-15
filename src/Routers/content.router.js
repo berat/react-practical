@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Axios from 'axios';
 
 import Content from '../component/content/';
 import ProfileContent from '../component/profile/content';
@@ -10,10 +11,8 @@ const ContentRouter = () => {
 
     return (
         <Switch>
-            <Route path="/home" component={Content} />
-            <Route path="/sign-up" component={Content} />
-            <Route path="/forget" component={Content} />
-            <Route path="/profile" component={ProfileContent} />
+            <Route path={["/home", "/sign-up", "/forget"]} component={Content} />
+            <Route path="/profile/:username" component={ProfileContent} />
             <Route component={Error} />
         </Switch>
     )

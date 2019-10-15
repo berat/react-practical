@@ -12,8 +12,6 @@ const Content = () => {
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
 
-
-    console.log(loading)
     useEffect(() => {
 
         async function senkron() {

@@ -60,6 +60,7 @@ const Auth = () => {
                 }
                 else {
                     setdefaultComp(0);
+                    console.log(defaultComp)
                     return <Login loginOl={setLogin} setdefaultComp={setdefaultComp} />
                 }
             }} />

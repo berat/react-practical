@@ -25,6 +25,7 @@ async function senkron() {
     loading.load= false;
 } senkron()
 
+
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'EKLE':
