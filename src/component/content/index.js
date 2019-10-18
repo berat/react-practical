@@ -12,7 +12,6 @@ const Content = () => {
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
 
-console.log(loading)
     useEffect(() => {
         async function senkron() {
             if (Boolean(Cookies.get("login")) === true) {
@@ -28,6 +27,9 @@ console.log(loading)
                 dispatch({
                     type: 'KONTROL',
                     payload: newOwner
+                }
+                ,{
+                    type: 'FALSEYAP',
                 })
             }
         }
