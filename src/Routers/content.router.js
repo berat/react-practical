@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Axios from 'axios';
 
 import Content from '../component/content/';
 import ProfileContent from '../component/profile/content';

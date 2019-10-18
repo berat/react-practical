@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import Pagination from 'pagination-react-hooks';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -43,7 +42,7 @@ const Content = (match) => {
     const sil = (e) => {
         var id = e.target.getAttribute("data-id")
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
-            .then(function (response) {
+            .then(function () {
                 const newPosts = [...yazilar];
                 var value = null;
                 newPosts.forEach((el, index) => {
