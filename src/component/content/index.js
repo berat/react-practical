@@ -12,22 +12,16 @@ const Content = () => {
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
 
+console.log(loading)
     useEffect(() => {
-
         async function senkron() {
-
-            const result = await Axios(
-                'https://practical-react-server.herokuapp.com/v1/post/',
-            );
-
             if (Boolean(Cookies.get("login")) === true) {
                 const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
                 const userid = jwtDecode(Cookies.get("login")).userid
                 const user = response.data.filter((dataItem) => (dataItem._id === userid));
                 const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
                 const nickName = userNickname.slice(2, -2)
-
-                const newOwner = result.data.some(data => data.who === nickName) ?
+                const newOwner = yazilar.some(data => data.who === nickName) ?
                     [{ who: nickName, status: true }] :
                     [{ status: false }];
 
@@ -39,14 +33,14 @@ const Content = () => {
         }
         senkron()
 
-    }, [dispatch])
+    }, [yazilar, dispatch])
 
 
     const sil = (e) => {
         var id = e.target.getAttribute("data-id")
 
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
-            .then(function (response) {
+            .then(function () {
                 const newPosts = [...yazilar];
                 var value = null;
                 newPosts.forEach((el, index) => {
@@ -77,10 +71,8 @@ const Content = () => {
         </li>
     )
 
-
-
+    
     return (
-
         loading ? 'yükleniyor' :
             <ul>
                 <Pagination

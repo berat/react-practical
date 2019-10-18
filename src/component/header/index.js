@@ -7,24 +7,16 @@ import Cookies from 'js-cookie';
 const Header = () => {
 
 	const [toggleIsVisible, setToggleIsVisible] = useState(false);
-	const owner = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2,-2)
-	// const owner = useSelector((state) => (state.Reducer.owner))
-
+	const owner = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2, -2)
 	const [aktiflik, setAktiflik] = useState(false);
 
 
-	useEffect(async () => {
-		
-		const result = await Axios('https://practical-react-server.herokuapp.com/v1/auth/',);
-		const filterData = await result.data.filter(value => value.nickName==owner)
-		// console.log(await result.data.filter(data=> data.nickName=="Berat"))
-
+	useEffect( () => {
 		if (Cookies.get("login")) {
 			setAktiflik(true)
 		}
-
 	}, [])
-	
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light">
 			<div className="container">
