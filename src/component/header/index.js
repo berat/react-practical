@@ -6,13 +6,13 @@ import Cookies from 'js-cookie';
 const Header = () => {
 
 	const [toggleIsVisible, setToggleIsVisible] = useState(false);
-	const owner = JSON.stringify(useSelector((state) => (state.Reducer.owner)).map(value => value.who)).slice(2, -2)
-	const [aktiflik, setAktiflik] = useState(false);
+	const owner = useSelector((state) => (state.authReducer.username))
+	const [active, setActive] = useState(false);
 
 
 	useEffect( () => {
 		if (Cookies.get("login")) {
-			setAktiflik(true)
+			setActive(true)
 		}
 	}, [])
 
@@ -26,16 +26,16 @@ const Header = () => {
 				<div style={{ display: toggleIsVisible ? "none" : "block" }} className="justify-content-end navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav justify-content-end">
 						<li className="nav-item">
-							<NavLink activeClassName="active" className="nav-link" to="/home">Ansayfa</NavLink>
+							<NavLink activeClassName="active" className="nav-link" to="/home">Home</NavLink>
 						</li>
-						<li className="nav-item" style={{ display: aktiflik === false ? "none" : "inherit" }}>
+						<li className="nav-item" style={{ display: active === false ? "none" : "inherit" }}>
 							<NavLink activeClassName="active" className="nav-link" to={`/profile/${owner}`}>Profil</NavLink>
 						</li>
-						<li className="nav-item" style={{ display: aktiflik === true ? "none" : "inherit" }}>
-							<NavLink activeClassName="active" className="nav-link" to="/home">Giriş Yap</NavLink>
+						<li className="nav-item" style={{ display: active === true ? "none" : "inherit" }}>
+							<NavLink activeClassName="active" className="nav-link" to="/home">Login</NavLink>
 						</li>
-						<li className="nav-item" style={{ display: aktiflik === true ? "none" : "inherit" }}>
-							<NavLink activeClassName="active" className="nav-link" to="/sign-up">Kayıt Ol</NavLink>
+						<li className="nav-item" style={{ display: active === true ? "none" : "inherit" }}>
+							<NavLink activeClassName="active" className="nav-link" to="/sign-up">Register</NavLink>
 						</li>
 					</ul>
 				</div>

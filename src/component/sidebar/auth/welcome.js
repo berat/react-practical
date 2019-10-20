@@ -1,17 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { useSelector } from 'react-redux';
+import Axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Welcome = ({ deleteLogin,deleteDefaultComp}) => {
 
-    const kim = useSelector((state) => (state.Reducer.owner))
-    console.log(kim)
+const Welcome = ({ deleteLogin, deleteDefaultComp }) => {
+
+    const kim = useSelector((state) => (state.authReducer.login))
+    const username = useSelector((state) => (state.authReducer.username))
+    const dispatch = useDispatch();
+
+
+    const findToken = async () => {
+        const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
+        const userToken = jwtDecode(kim)
+        const user = response.data.filter((dataItem) => (dataItem._id === userToken.userid));
+        const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
+        dispatch({
+            type: 'CURRENTUSER',
+            payload: userNickname.slice(2, -2)
+        })
+    }
+    findToken()
+
+
     const cikisYap = e => {
         deleteLogin()
         Cookies.remove("login")
         Cookies.remove("defaultComp")
-        window.location.reload(); 
+        window.location.reload();
         deleteDefaultComp(0)
     }
     return (
@@ -19,7 +38,7 @@ const Welcome = ({ deleteLogin,deleteDefaultComp}) => {
             <div className="card-header">Hoş Geldin</div>
             <div className="card-body">
                 <p> Merhaba <b>{
-                    kim.map( value => value.who)
+                    username
                 }</b>, Hoşgeldin.</p>
                 <Link to="/" onClick={cikisYap}>Çıkış Yap</Link>
             </div>

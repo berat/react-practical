@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Axios from 'axios'; 
+import Axios from 'axios';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Pagination from 'pagination-react-hooks';
@@ -7,50 +7,65 @@ import { useSelector, useDispatch } from 'react-redux';
 
 const Content = () => {
 
-    const yazilar = useSelector((state) => (state.Reducer.posts))
+    const postList = useSelector((state) => (state.Reducer.posts))
     const owner = useSelector((state) => (state.Reducer.owner))
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
 
     useEffect(() => {
-        async function senkron() {
+        async function synchronous() {
+
+            const result = await Axios(
+                'https://practical-react-server.herokuapp.com/v1/post/',
+            );
+            dispatch({
+                type: 'ADDITEM',
+                payload: result.data
+            })
+            dispatch(
+            {
+                type: 'FALSE'
+            })
+
+
+            
             if (Boolean(Cookies.get("login")) === true) {
                 const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
                 const userid = jwtDecode(Cookies.get("login")).userid
                 const user = response.data.filter((dataItem) => (dataItem._id === userid));
                 const userNickname = JSON.stringify(user.map((value) => { return value.nickName }))
                 const nickName = userNickname.slice(2, -2)
-                const newOwner = yazilar.some(data => data.who === nickName) ?
-                    [{ who: nickName, status: true }] :
-                    [{ status: false }];
-
+                const newOwner = postList.some(data => data.who === nickName) ?
+                [{ who: nickName, status: true }] :
+                [{ status: false }];
+                
                 dispatch({
-                    type: 'KONTROL',
+                    type: 'CHECK',
                     payload: newOwner
-                }
-                ,{
-                    type: 'FALSEYAP',
                 })
             }
+
         }
-        senkron()
+        synchronous()
 
-    }, [yazilar, dispatch])
+    }, [dispatch])
 
 
-    const sil = (e) => {
+    const deleteItem = (e) => {
         var id = e.target.getAttribute("data-id")
 
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
             .then(function () {
-                const newPosts = [...yazilar];
+                const newPosts = [...postList];
                 var value = null;
                 newPosts.forEach((el, index) => {
-                    el._id === id ? value = index : value = null
+                    el._id === id
+                        ? value = index
+                        : value = null
                 })
                 if (value != null) newPosts.splice(value, 1)
                 dispatch({
-                    type: 'EKLE',
+                    type: 'ADDITEM',
                     payload: newPosts
                 })
             })
@@ -66,23 +81,23 @@ const Content = () => {
                 <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b>{value.who}</b> <cite>| {value.date}
                     {owner.map((data) => (
                         data.who) === value.who ?
-                        <b data-id={value._id} onClick={sil}> Sil  </b> : null)}
+                        <b data-id={value._id} onClick={deleteItem}> Delete  </b> : null)}
                 </cite></footer>
                 </blockquote>
             </div>
         </li>
     )
 
-    
+
     return (
-        loading ? 'yükleniyor' :
+        loading ? 'loading...' :
             <ul>
                 <Pagination
-                    data={yazilar.slice(0).reverse()}
+                    data={postList.slice(0).reverse()}
                     Show={Show}
                     displayNumber="6"
-                    previousText="Önceki"
-                    nextText="Sonraki"
+                    previousText="Previous"
+                    nextText="Next"
                 />
             </ul>
     )

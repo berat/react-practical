@@ -5,16 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Error from '../error'
 
-const Content = (match) => {
+const Content = (param) => {
 
-    const username = match.match.params.username;
+    const username = param.match.params.username;
 
-    const yazilar = useSelector((state) => (state.Reducer.posts))
-    const [profilePost, setProfilePost] = useState([]);
-    const [redirect, setRedirect] = useState(false);
+    const postList = useSelector((state) => (state.Reducer.posts))
     const owner = useSelector((state) => (state.Reducer.owner))
     const loading = useSelector((state) => (state.loadReducer.load))
     const dispatch = useDispatch();
+
+    const [profilePost, setProfilePost] = useState([]);
+    const [redirect, setRedirect] = useState(false);
 
     const findUser = () => (
         Axios.get("https://practical-react-server.herokuapp.com/v1/auth/")
@@ -26,11 +27,11 @@ const Content = (match) => {
 
     findUser()
         .then((data) => {
-            if (data.length!==0) {
-                const filtrele = yazilar.filter(value => value.who === username)
-                return filtrele
+            if (data.length !== 0) {
+                const postFilter = postList.filter(value => value.who === username)
+                return postFilter
             }
-            else{
+            else {
                 setRedirect(true)
             }
         })
@@ -39,18 +40,20 @@ const Content = (match) => {
             console.log(err)
         })
 
-    const sil = (e) => {
+    const deleteItem = (e) => {
         var id = e.target.getAttribute("data-id")
         Axios.post("https://practical-react-server.herokuapp.com/v1/post/sil", { id: id })
             .then(function () {
-                const newPosts = [...yazilar];
+                const newPosts = [...postList];
                 var value = null;
                 newPosts.forEach((el, index) => {
-                    el._id === id ? value = index : value = null
+                    el._id === id
+                        ? value = index
+                        : value = null
                 })
                 if (value != null) newPosts.splice(value, 1)
                 dispatch({
-                    type: 'EKLE',
+                    type: 'ADDITEM',
                     payload: newPosts
                 })
             })
@@ -65,7 +68,7 @@ const Content = (match) => {
                 <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b>{value.who}</b> <cite>| {value.date}
                     {owner.map((data) => (
                         data.who) === value.who ?
-                        <b data-id={value._id} onClick={sil}> Sil  </b> : null)}
+                        <b data-id={value._id} onClick={deleteItem}> Delete  </b> : null)}
                 </cite></footer>
                 </blockquote>
             </div>
@@ -73,17 +76,21 @@ const Content = (match) => {
     )
     return (
 
-        loading ? 'yükleniyor' :
-            redirect===true ? <Error /> :
-            <ul>
-                <Pagination
-                    data={profilePost.slice(0).reverse()}
-                    Show={Show}
-                    displayNumber="6"
-                    previousText="Önceki"
-                    nextText="Sonraki"
-                />
-            </ul>
+        loading ?
+            'loading...' :
+                redirect === true ?
+                    <Error /> :
+                        profilePost.length === 0 ?
+                            `${username} hasn't shared anything yet.` :
+                            <ul>
+                                <Pagination
+                                    data={profilePost.slice(0).reverse()}
+                                    Show={Show}
+                                    displayNumber="6"
+                                    previousText="Previous"
+                                    nextText="Next"
+                                />
+                            </ul>
     )
 }
 

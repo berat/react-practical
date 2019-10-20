@@ -8,7 +8,6 @@ import Footer from './component/footer/';
 
 const App = () => {
 
-
   return (
     <>
       <Header />

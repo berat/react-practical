@@ -18,7 +18,7 @@ const Auth = () => {
     const dispatch = useDispatch();
 
     dispatch({
-        type: 'LOGINOL',
+        type: 'LOGIN',
         payload: login
     })
 

@@ -6,7 +6,7 @@ const ProfileSidebar = ({ match }) => {
 
     const yazilar = useSelector((state) => (state.Reducer.posts))
 
-    const [sayac, setSayac] = useState(0)
+    const [counter, setCounter] = useState(0)
     const [sum, setSum] = useState(0)
 
     const findUser = () => (
@@ -19,27 +19,27 @@ const ProfileSidebar = ({ match }) => {
 
     findUser()
         .then((data) => {
-            if(data){
-                setSayac(data.length)
+            if (data) {
+                setCounter(data.length)
                 setSum(yazilar.filter(value => value.who === match.params.username).length)
             }
-            else setSayac(0)
+            else setCounter(0)
         })
 
     return (
-        sayac !== 0 ?
+        counter !== 0 ?
             <div className="card">
-                <div className="card-header">Hoş Geldin</div>
+                <div className="card-header">Welcome</div>
                 <div className="card-body">
-                    <p> <b>{match.params.username}</b>'ın profiline hoşgeldin.</p>
-                    <p>Toplam <b>{sum}</b> yazın var.</p>
+                    <p>Welcome to <b>{match.params.username}</b>'s profile page.</p>
+                    <p>{match.params.username} has <b>{sum}</b> posts</p>
                 </div>
             </div>
             :
             <div className="card">
-                <div className="card-header">Hoş Geldin</div>
+                <div className="card-header">Welcome</div>
                 <div className="card-body">
-                    <p> Böyle bir kullanıcı yok. </p>
+                    <p> Haven't such a user.. </p>
                 </div>
             </div>
     )

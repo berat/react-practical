@@ -13,29 +13,35 @@ const loading = {
 const auth = {
     login: null,
     defaultComp: 0,
-    authStatus: 0
+    authStatus: 0,
+    username: null,
 }
 
-async function senkron() {
+async function synchronous() {
 
     const result = await Axios(
         'https://practical-react-server.herokuapp.com/v1/post/',
     );
     initialState.posts = result.data;
-    loading.load= false;
-} senkron()
+    loading.load = false;
+} 
 
 
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'EKLE':
+        case 'ADDITEM':
             let newPosts = [...action.payload]
             return {
                 ...state,
                 posts: newPosts
 
             };
-        case 'KONTROL':
+        case 'FULL':
+            return {
+                ...state,
+                posts: synchronous()
+            }
+        case 'CHECK':
             let newOwner = [...action.payload]
             return {
                 ...state,
@@ -53,7 +59,7 @@ const loadReducer = (state = loading, action) => {
                 ...state,
                 load: !state.load
             }
-        case 'FALSEYAP':
+        case 'FALSE':
             return {
                 ...state,
                 load: false,
@@ -65,7 +71,7 @@ const loadReducer = (state = loading, action) => {
 
 const authReducer = (state = auth, action) => {
     switch (action.type) {
-        case 'LOGINOL':
+        case 'LOGIN':
             return {
                 ...state,
                 login: action.payload
@@ -74,6 +80,11 @@ const authReducer = (state = auth, action) => {
             return {
                 ...state,
                 defaultComp: action.payload
+            }
+        case 'CURRENTUSER':
+            return {
+                ...state,
+                username: action.payload
             }
         default:
             return state
