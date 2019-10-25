@@ -21,7 +21,12 @@ const Content = (param) => {
         Axios.get("https://practical-react-server.herokuapp.com/v1/auth/")
             .then(response => {
                 const data = response.data;
+                dispatch(
+                    {
+                        type: 'FALSE'
+                    })
                 return data.filter(value => value.nickName === username)
+
             })
     )
 
@@ -78,19 +83,19 @@ const Content = (param) => {
 
         loading ?
             'loading...' :
-                redirect === true ?
-                    <Error /> :
-                        profilePost.length === 0 ?
-                            `${username} hasn't shared anything yet.` :
-                            <ul>
-                                <Pagination
-                                    data={profilePost.slice(0).reverse()}
-                                    Show={Show}
-                                    displayNumber="6"
-                                    previousText="Previous"
-                                    nextText="Next"
-                                />
-                            </ul>
+            redirect === true ?
+                <Error /> :
+                profilePost.length === 0 ?
+                    `${username} hasn't shared anything yet.` :
+                    <ul>
+                        <Pagination
+                            data={profilePost.slice(0).reverse()}
+                            Show={Show}
+                            displayNumber="6"
+                            previousText="Previous"
+                            nextText="Next"
+                        />
+                    </ul>
     )
 }
 
