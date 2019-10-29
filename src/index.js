@@ -13,7 +13,7 @@ import './main.css';
 ReactDOM.render(
     <Router>
         {
-            window.location.pathname == "/"
+            window.location.pathname === "/"
                 ? <Redirect to="/home" />
                 : null
         }

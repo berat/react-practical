@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Pagination from 'pagination-react-hooks';
@@ -15,19 +16,10 @@ const Content = () => {
     useEffect(() => {
         async function synchronous() {
 
-            const result = await Axios(
-                'https://practical-react-server.herokuapp.com/v1/post/',
-            );
-            dispatch({
-                type: 'ADDITEM',
-                payload: result.data
-            })
             dispatch(
             {
                 type: 'FALSE'
             })
-
-
             
             if (Boolean(Cookies.get("login")) === true) {
                 const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
@@ -48,7 +40,7 @@ const Content = () => {
         }
         synchronous()
 
-    }, [dispatch])
+    }, [postList, dispatch])
 
 
     const deleteItem = (e) => {
@@ -78,7 +70,7 @@ const Content = () => {
     const Show = (value) => (
         <li key="1" className="card mt-sm-4 mb-sm-6">
             <div className="card-body">
-                <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b>{value.who}</b> <cite>| {value.date}
+                <blockquote className="blockquote mb-0"><p>{value.post.substr(0, 280)}</p><footer className="blockquote-footer"><b><Link to={"/profile/"+value.who}>{value.who}</Link></b> <cite>| {value.date}
                     {owner.map((data) => (
                         data.who) === value.who ?
                         <b data-id={value._id} onClick={deleteItem}> Delete  </b> : null)}

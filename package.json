@@ -10,7 +10,7 @@
     "gulp": "^4.0.2",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
-    "pagination-react-hooks": "^1.0.11",
+    "pagination-react-hooks": "^1.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-github-btn": "^1.0.5",

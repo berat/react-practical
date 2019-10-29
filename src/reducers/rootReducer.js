@@ -26,7 +26,7 @@ async function synchronous() {
     loading.load = false;
 } 
 
-
+synchronous()
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADDITEM':
@@ -36,11 +36,6 @@ const Reducer = (state = initialState, action) => {
                 posts: newPosts
 
             };
-        case 'FULL':
-            return {
-                ...state,
-                posts: synchronous()
-            }
         case 'CHECK':
             let newOwner = [...action.payload]
             return {

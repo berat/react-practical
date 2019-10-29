@@ -32,18 +32,19 @@ const Content = (param) => {
 
     findUser()
         .then((data) => {
-            if (data.length !== 0) {
+            if (data.length === 1) {
                 const postFilter = postList.filter(value => value.who === username)
-                return postFilter
+                setProfilePost(postFilter)
             }
             else {
                 setRedirect(true)
             }
         })
-        .then((value) => setProfilePost(value))
         .catch((err) => {
             console.log(err)
         })
+
+
 
     const deleteItem = (e) => {
         var id = e.target.getAttribute("data-id")
@@ -86,7 +87,7 @@ const Content = (param) => {
             redirect === true ?
                 <Error /> :
                 profilePost.length === 0 ?
-                    `${username} hasn't shared anything yet.` :
+                    `${profilePost} hasn't shared anything yet.` :
                     <ul>
                         <Pagination
                             data={profilePost.slice(0).reverse()}

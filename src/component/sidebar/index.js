@@ -23,7 +23,7 @@ const Sidebar = () => {
         let months = [
             "January", "February", "March", "April", "May",
             "June", "July", "August", "September",
-            "Octeber", "November", "December"
+            "October", "November", "December"
         ];
         let day = dateTime.getDate();
         let monthsNumber = dateTime.getMonth();
