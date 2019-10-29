@@ -66,6 +66,7 @@ const Content = () => {
             });
     }
 
+    console.log(postList)
 
     const Show = (value) => (
         <li key="1" className="card mt-sm-4 mb-sm-6">

@@ -36,7 +36,6 @@ const Login = ({ loginOl, setdefaultComp }) => {
                     <div className="form-group">
                         <input type="password" ref={pass} className="form-control" id="exampleInputPassword1" placeholder="Password" />
                     </div>
-                    <small id="emailHelp" className="form-text text-muted mt-n2 mb-sm-2"><Link to="/forget" onClick={() => { setdefaultComp(2) }}>Forget Password</Link></small>
                     <button type="submit" onClick={login} className="form-control btn btn-primary">Login</button>
                     <small id="emailHelp" className="text-center form-text text-muted mt-sm-2">Haven't you account? <Link to="/sign-up" onClick={() => { setdefaultComp(1) }}> Register</Link></small>
                 </form>

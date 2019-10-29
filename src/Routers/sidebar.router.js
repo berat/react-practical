@@ -5,7 +5,6 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 import Login from '../component/sidebar/auth/login';
 import Register from '../component/sidebar/auth/register';
-import Forget from '../component/sidebar/auth/forget';
 import Welcome from '../component/sidebar/auth/welcome';
 import ProfileSidebar from '../component/profile/sidebar'
 
@@ -41,14 +40,6 @@ const Auth = () => {
                 if (login === null) {
                     setdefaultComp(1)
                     return <Register setdefaultComp={setdefaultComp} />
-                } else {
-                    return <Redirect to="/home" />
-                }
-            }} />
-            <Route path="/forget" component={() => {
-                if (login === null) {
-                    setdefaultComp(2)
-                    return <Forget />
                 } else {
                     return <Redirect to="/home" />
                 }

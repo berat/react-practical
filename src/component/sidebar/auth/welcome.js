@@ -40,7 +40,7 @@ const Welcome = ({ deleteLogin, deleteDefaultComp }) => {
                 <p> Merhaba <b>{
                     username
                 }</b>, Hoşgeldin.</p>
-                <Link to="/" onClick={cikisYap}>Çıkış Yap</Link>
+                <Link to="/home" onClick={cikisYap}>Çıkış Yap</Link>
             </div>
         </div>
     )

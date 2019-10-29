@@ -2,12 +2,9 @@ import React from 'react';
 import useCookie from '@devhammed/use-cookie'
 import { useDispatch } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import Axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 import Login from './login';
 import Register from './register';
-import Forget from './forget';
 import Welcome from './welcome';
 
 const Auth = () => {
@@ -40,14 +37,6 @@ const Auth = () => {
                 if (login === null) {
                     setdefaultComp(1)
                     return <Register setdefaultComp={setdefaultComp} />
-                } else {
-                    return <Redirect to="/home" />
-                }
-            }} />
-            <Route path="/forget" component={() => {
-                if (login === null) {
-                    setdefaultComp(2)
-                    return <Forget />
                 } else {
                     return <Redirect to="/home" />
                 }

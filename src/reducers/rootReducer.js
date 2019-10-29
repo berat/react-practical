@@ -27,6 +27,7 @@ async function synchronous() {
 } 
 
 synchronous()
+
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADDITEM':
