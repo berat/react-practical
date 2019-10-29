@@ -20,7 +20,6 @@ const Content = () => {
             {
                 type: 'FALSE'
             })
-            
             if (Boolean(Cookies.get("login")) === true) {
                 const response = await Axios("https://practical-react-server.herokuapp.com/v1/auth/")
                 const userid = jwtDecode(Cookies.get("login")).userid
@@ -66,7 +65,6 @@ const Content = () => {
             });
     }
 
-    console.log(postList)
 
     const Show = (value) => (
         <li key="1" className="card mt-sm-4 mb-sm-6">

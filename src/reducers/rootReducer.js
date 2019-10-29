@@ -22,12 +22,10 @@ async function synchronous() {
     const result = await Axios(
         'https://practical-react-server.herokuapp.com/v1/post/',
     );
-    initialState.posts = result.data;
+    initialState.posts = await result.data;
     loading.load = false;
 } 
-
 synchronous()
-
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADDITEM':
@@ -35,8 +33,9 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: newPosts
-
             };
+        case 'FULL':
+            return synchronous();
         case 'CHECK':
             let newOwner = [...action.payload]
             return {
